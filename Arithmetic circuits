@@ -1,0 +1,47 @@
+# Boolean circuits are inefficinet and verbose when representing addition or multiplication:
+this circuit below is to only model a + b = 12
+
+```python
+((a₄ ∧ b₄ ∧ c₄) ∨ (¬a₄ ∧ ¬b₄ ∧ c₄) ∨ (¬a₄ ∧ b₄ ∧ ¬c₄) ∨ (a₄ ∧ ¬b₄ ∧ ¬c₄)) ∧
+
+((a₃ ∧ b₃ ∧ ((a₂ ∧ b₂) ∨ (b₂ ∧ (a₁ ∧ b₁) ∨ (b₁ ∧ c₀) ∨ (a₁ ∧ c₀)))) ∨
+ (¬a₃ ∧ ¬b₃ ∧ ((a₂ ∧ b₂) ∨ (b₂ ∧ (a₁ ∧ b₁) ∨ (b₁ ∧ c₀) ∨ (a₁ ∧ c₀)))) ∨
+ (¬a₃ ∧ b₃ ∧ ¬((a₂ ∧ b₂) ∨ (b₂ ∧ (a₁ ∧ b₁) ∨ (b₁ ∧ c₀) ∨ (a₁ ∧ c₀)))) ∨
+ (a₃ ∧ ¬b₃ ∧ ¬((a₂ ∧ b₂) ∨ (b₂ ∧ (a₁ ∧ b₁) ∨ (b₁ ∧ c₀) ∨ (a₁ ∧ c₀))))) ∧
+
+((a₂ ∧ b₂ ∧ ((a₁ ∧ b₁) ∨ (b₁ ∧ c₀) ∨ (a₁ ∧ c₀))) ∨
+ (¬a₂ ∧ ¬b₂ ∧ ((a₁ ∧ b₁) ∨ (b₁ ∧ c₀) ∨ (a₁ ∧ c₀))) ∨
+ (¬a₂ ∧ b₂ ∧ ¬((a₁ ∧ b₁) ∨ (b₁ ∧ c₀) ∨ (a₁ ∧ c₀)))) ∨
+ (a₂ ∧ ¬b₂ ∧ ¬((a₁ ∧ b₁) ∨ (b₁ ∧ c₀) ∨ (a₁ ∧ c₀))))) ∧
+
+((a₁ ∧ b₁ ∧ c₀) ∨ (¬a₁ ∧ ¬b₁ ∧ c₀) ∨ (¬a₁ ∧ b₁ ∧ ¬c₀) ∨ (a₁ ∧ ¬b₁ ∧ ¬c₀)) ∧
+
+((a₀ ∧ b₀ ∧ c₀) ∨ (¬a₀ ∧ ¬b₀ ∧ c₀) ∨ (¬a₀ ∧ b₀ ∧ ¬c₀) ∨ (a₀ ∧ ¬b₀ ∧ ¬c₀)) ∧
+
+¬ ((a₄ ∧ b₄) ∨
+     (b₄ ∧ (a₃ ∧ b₃) ∨ (b₃ ∧ (a₂ ∧ b₂) ∨ (b₂ ∧ (a₁ ∧ b₁) ∨ (b₁ ∧ c₀) ∨ (a₁ ∧ c₀))) ∨
+     (a₃ ∧ (a₂ ∧ b₂) ∨ (b₂ ∧ (a₁ ∧ b₁) ∨ (b₁ ∧ c₀) ∨ (a₁ ∧ c₀))))
+```
+
+* An arithmetic circuit is a system of equations using only addition, multiplication, and equality. Like a Boolean circuit, it checks that a proposed set of inputs is valid, but doesn’t compute a solution.
+* The reduction in the number of inputs and the overall circuit size is why we prefer using arithmetic circuits for ZK applications
+* We say a Boolean circuit is satisfied if we have an assignment to the input variables that results in an output of true. Similarly, an arithmetic circuit is satisfied if there is an assignment to the variables such that all the equations hold true.
+* Variables in an arithmetic circuit are referred to as signals
+* think of the arithmetic circuit as encoding all of the constraints of your problem, and the witness as your private “assignment” of values (the signals) to its inputs (and intermediate wires).
+
+* C === a + b => assertEq(c, a + b)
+
+Three coloring map: 
+blue = 1
+red = 2 
+green = 3
+each countyr have one color: 0 === (1 - x) * (2 - x) * (3 - x)
+# Countires have diff colors:
+1) 0 === (1 - WA) * (2 - WA) * (3 - WA)
+2) 0 === (1 - SA) * (2 - SA) * (3 - SA)
+3) 0 === (1 - NT) * (2 - NT) * (3 - NT)
+4) 0 === (1 - Q) * (2 - Q) * (3 - Q)
+5) 0 === (1 - NSW) * (2 - NSW) * (3 - NSW)
+6) 0 === (1 - V) * (2 - V) * (3 - V)
+# Counties not have same adjacent colour:
+If they have same color, then their multiply is {1, 4, 9} else its {2, 3, 6}
