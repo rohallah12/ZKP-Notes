@@ -1,0 +1,33 @@
+Source: https://rareskills.io/post/p-vs-np
+
+Polynomial time => (o(n^k)) where k is a constant and n is the input size
+Exponential time => for example O(2^n) where computing the solution becomes exteremely hard
+
+P => easy to solve and verify the answer:
+- sorting a list
+- Binary Search
+
+NP => hard to solve but easy to verify the answer:
+- Subset Sum:
+    - Given a multiset of positive integers and a target sum TT, decide whether some subset of them sums exactly to TT.
+- three-coloring a map:
+    - Given a bunch of countires on the map, assign a unique color (one of four colors) to each territory such that no neighboring territories share the same color.
+
+PSPACE => hard to solve and hard to veirfy the answer:
+- Optimal chess move: 
+    - Hard to verify whether proposed move is optimal or not, you'd have to search all the possible moves and decide whether the solution is optimal or not
+
+Witness => Its the proof that we have solved the problem i.e the correct answer to the problem, for example in "sorting" the witness is the sorted list
+
+*‌ All problems in P and NP can be expressed as a Boolean formula that outputs true if we know the corresponding variable assignment (witness), which encodes a correct solution to the original problem.
+*‌ Verifying a solution to a problem in NP or P can be accomplished by verifying a solution to a Boolean formula that models the problem.
+*‌ Finding a solution to a Boolean formula is an NP problem itself — it may require exponential resources to find the solution, but verifying it can be done in polynomial time.
+*‌ our use of Boolean formulas is not to solve them — only to verify proposed solutions for them.
+*‌ Our intent is to show we know the witness for the original problem — but in Boolean form.
+
+# ZK proofs seek to demonstrate that you know the witness without revealing it.
+* ZK cannot help you discover a solution to a Sudoku puzzle or discover a 3-coloring of a map. However, it can help you prove to another party that you have a solution, if you already computed it.
+* In the ZK literature, we often refer to Boolean formulas as Boolean circuits.
+* Creating a zero knowledge proof for a problem boils down to translating the problem to a circuit
+
+ZK Proofs => proving that we know an input (witness) to the boolean circuit so that the result will be true without revealing the secret (witness)
